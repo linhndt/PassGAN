@@ -70,10 +70,10 @@ def parse_args():
 
 args = parse_args()
 
-with open(os.path.join(args.input_dir, 'charmap.pickle'), 'rb', encoding='latin1') as f:
+with open(os.path.join(args.input_dir, 'charmap.pickle'), 'r', encoding='latin1') as f:
     charmap = pickle.load(f)
 
-with open(os.path.join(args.input_dir, 'inv_charmap.pickle'), 'rb', encoding='latin1') as f:
+with open(os.path.join(args.input_dir, 'inv_charmap.pickle'), 'r', encoding='latin1') as f:
     inv_charmap = pickle.load(f)
 
 fake_inputs = models.Generator(args.batch_size, args.seq_length, args.layer_dim, len(charmap))
