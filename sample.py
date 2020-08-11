@@ -94,6 +94,7 @@ with tf.Session() as session:
     def save(samples):
         with open(args.output, 'a') as f:
                 for s in samples:
+                    s = s.decode("utf-8")
                     s = "".join(s).replace('`', '')
                     f.write(s + "\n")
 
