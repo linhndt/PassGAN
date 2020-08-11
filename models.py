@@ -25,7 +25,7 @@ def Generator(n_samples, seq_len, layer_dim, output_dim, prev_outputs=None):
     output = softmax(output, output_dim)
     return output
 
-def Discriminator(inputs, seq_len, layer_dim, input_dim):random
+def Discriminator(inputs, seq_len, layer_dim, input_dim):
     output = tf.transpose(inputs, [0,2,1])
     output = lib.ops.conv1d.Conv1D('Discriminator.Input', input_dim, layer_dim, 1, output)
     output = ResBlock('Discriminator.1', output, layer_dim)
