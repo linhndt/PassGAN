@@ -10,6 +10,9 @@ import tflib.ops.linear
 import tflib.ops.conv1d
 import utils
 import models
+import dill
+
+dill._dill._reverse_typemap['ObjectType'] = object
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -71,10 +74,10 @@ def parse_args():
 args = parse_args()
 
 with open(os.path.join(args.input_dir, 'charmap.pickle'), 'rb') as f:
-    charmap = pickle.load(f,  encoding="bytes")
+    charmap = pickle.load(f,  encoding="latin1")
 
 with open(os.path.join(args.input_dir, 'inv_charmap.pickle'), 'rb') as f:
-    inv_charmap = pickle.load(f,  encoding="bytes")
+    inv_charmap = pickle.load(f,  encoding="latin1")
 
 fake_inputs = models.Generator(args.batch_size, args.seq_length, args.layer_dim, len(charmap))
 
@@ -95,7 +98,7 @@ with tf.Session() as session:
         with open(args.output, 'a') as f:
                 for s in samples:
 #                     s = s.decode("utf-8")
-#                     s = "".join(s).replace('`', '')
+                    s = "".join(s).replace('`', '')
                     f.write(s + "\n")
 
     saver = tf.train.Saver()
